@@ -21,9 +21,10 @@ _self: super: {
   ccusage = inputs.ccusage.packages.${super.stdenv.hostPlatform.system}.default;
   opencode =
     let
-      # --- WORKAROUND: upstream hashes.json has a wrong hash for x86_64-linux node_modules in v1.3.13.
-      # Once fixed upstream, remove the workaround block below and uncomment the simple line instead.
-      # Track: https://github.com/anomalyco/opencode
+      # --- WORKAROUND: opencode often bumps its packageManager Bun version before
+      # nixpkgs has that exact Bun release. Allow the fixed-output node_modules
+      # build to refresh bun.lock metadata in the temporary build tree; outputHash
+      # still pins the installed node_modules result.
       #
       # SIMPLE (restore when upstream is fixed):
       # base = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
@@ -31,14 +32,18 @@ _self: super: {
       # WORKAROUND (comment out when upstream is fixed):
       src = inputs.opencode.sourceInfo;
       rev = inputs.opencode.sourceInfo.shortRev or inputs.opencode.sourceInfo.dirtyShortRev or "dirty";
-      node_modules = super.callPackage "${src}/nix/node_modules.nix" {
-        inherit rev;
-        hash =
-          if super.stdenv.hostPlatform.isDarwin then
-            "sha256-kA6ouv1tGdMf47AfuJ456iCX49cJw221D9jgKEMQznk="
-          else
-            "sha256-LOxTad/iCquvJyonFOcz6/rDTPNDmwyBnykhWZJ5GC4=";
-      };
+      node_modules =
+        (super.callPackage "${src}/nix/node_modules.nix" {
+          inherit rev;
+          hash =
+            if super.stdenv.hostPlatform.isDarwin then
+              "sha256-kA6ouv1tGdMf47AfuJ456iCX49cJw221D9jgKEMQznk="
+            else
+              "sha256-i5Uyp7Dh5VyoxmDyl/Pw6/2MsHJUJ00G7dGN8K3BIxo=";
+        }).overrideAttrs
+          (oldAttrs: {
+            buildPhase = builtins.replaceStrings [ "--frozen-lockfile" ] [ "" ] oldAttrs.buildPhase;
+          });
       base = super.callPackage "${src}/nix/opencode.nix" { inherit node_modules; };
       # END WORKAROUND
       # base = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;

@@ -67,7 +67,10 @@ stdenv.mkDerivation (finalAttrs: {
 
     mkdir -p $out/bin
     makeWrapper $out/lib/${finalAttrs.pname}/copilot $out/bin/copilot \
-      --set SSL_CERT_DIR "${cacert}/etc/ssl/certs"
+      --set SSL_CERT_DIR "${cacert}/etc/ssl/certs" \
+      ${lib.optionalString stdenv.hostPlatform.isLinux ''
+        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ stdenv.cc.cc.lib ]}
+      ''}
 
     runHook postInstall
   '';
