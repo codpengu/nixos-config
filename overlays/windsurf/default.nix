@@ -13,7 +13,7 @@
   inherit commandLineArgs;
   useVSCodeRipgrep = false;
 
-  version = "3.3.18";
+  version = "3.4.22";
   vscodeVersion = "1.110.1";
   pname = "windsurf";
 
@@ -23,8 +23,8 @@
   shortName = "devin-desktop";
 
   src = fetchurl {
-    url = "https://windsurf-stable.codeiumdata.com/linux-x64/stable/16737566f57f3b53bde136375fe0544eca12fac4/Devin-linux-x64-3.3.18.tar.gz";
-    sha256 = "sha256-Bcf6mIwyShYzA46+kOIX0Xp/GIGXpQcPOXRghk70EpI=";
+    url = "https://windsurf-stable.codeiumdata.com/linux-x64/stable/0c84d3332806347c90e571331f48dd13a957d880/Devin-linux-x64-3.4.22.tar.gz";
+    sha256 = "sha256-Ar+1ivbYmMxBM3p2GjSuafVfBcjCjjYRpc8sQxYQsHI=";
     # sha256 = lib.fakeSha256;
   };
 

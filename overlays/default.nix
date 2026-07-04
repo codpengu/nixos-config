@@ -37,9 +37,9 @@ _self: super: {
           inherit rev;
           hash =
             if super.stdenv.hostPlatform.isDarwin then
-              "sha256-kA6ouv1tGdMf47AfuJ456iCX49cJw221D9jgKEMQznk="
+              "sha256-7+4skFiJ+tLSjNG6WR53bT/IektA5B7gEcWLYpkK4z8="
             else
-              "sha256-i5Uyp7Dh5VyoxmDyl/Pw6/2MsHJUJ00G7dGN8K3BIxo=";
+              "sha256-Ulflihjr8JDRVyNxSchoqaey6z/12256zs1FOiw+4vo=";
         }).overrideAttrs
           (oldAttrs: {
             buildPhase = builtins.replaceStrings [ "--frozen-lockfile" ] [ "" ] oldAttrs.buildPhase;
