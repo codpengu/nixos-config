@@ -55,7 +55,6 @@ in
       # jetbrains.idea-community
       vscode.fhs
       zed-editor-fhs
-      # leetcode-cli
       # gitbutler
     ];
 }

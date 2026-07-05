@@ -97,7 +97,6 @@
       darwinSystem = "aarch64-darwin";
 
       overlays = [
-        (import ./overlays/leetcode-cli)
         # (import ./overlays/nvim/neotest-jdtls)
         (import ./overlays/nvim/neotest-vim-test)
         (import ./overlays {

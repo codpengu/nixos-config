@@ -196,4 +196,4 @@ require("lazy").setup({
 	{ "tpope/vim-repeat", cond = not is_vscode },
 })
 
-require("qverkk")
+require("codpengu")
