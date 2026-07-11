@@ -8,7 +8,7 @@
   versionCheckHook,
 }:
 let
-  version = "0.142.5";
+  version = "0.144.1";
 
   # Map system to platform-specific npm package
   platformPkg =
@@ -16,7 +16,7 @@ let
       x86_64-linux = {
         platform = "linux-x64";
         arch = "x86_64-unknown-linux-musl";
-        hash = "sha256-ycC3QaN/dS7+IXdW3EqfRq5M3bZjB5nx4owZ7BAIHa0=";
+        hash = "sha256-7lNgIOmI51ipRCP77whwcWrLYeVJsrx5aHEbP6i3Xlg=";
       };
       aarch64-linux = {
         platform = "linux-arm64";
@@ -31,7 +31,7 @@ let
       aarch64-darwin = {
         platform = "darwin-arm64";
         arch = "aarch64-apple-darwin";
-        hash = "sha256-0rqE45GSdowKyQmyywmZkzsW3uowNh8uwVVVXPIbGz0=";
+        hash = "sha256-co3zm1T/WKph3NiajiSsqNvq5Yai08hsXMpNtaj7kCc=";
       };
     }
     .${stdenv.hostPlatform.system}
