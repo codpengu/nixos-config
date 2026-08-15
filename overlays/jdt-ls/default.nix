@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       # There are config_ss_* directories too, use them to run the lightweight
       # version, see
       # https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-lightweight-syntax-language-server
-      config-path = if stdenv.isDarwin then "config_mac" else "config_linux";
+      config-path = if stdenv.hostPlatform.isDarwin then "config_mac" else "config_linux";
     in
     ''
       JARs_dir=$out/share/plugins

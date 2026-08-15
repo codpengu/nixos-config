@@ -1,4 +1,4 @@
 { lib, pkgs, ... }:
 {
-  home.packages = lib.optionals pkgs.stdenv.isLinux [ pkgs.steam-run ];
+  home.packages = lib.optionals pkgs.stdenv.hostPlatform.isLinux [ pkgs.steam-run ];
 }

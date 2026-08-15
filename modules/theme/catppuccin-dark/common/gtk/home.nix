@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 rec {
   home.sessionVariables = {
-    GTK_THEME = "Sweet-Ambar-Blue-Dark-v40";
+    GTK_THEME = gtk.theme.name;
   };
 
   gtk = {
@@ -12,8 +12,8 @@ rec {
       size = 12;
     };
     theme = {
-      name = "Sweet-Ambar-Blue-Dark-v40";
-      package = pkgs.sweet;
+      name = "catppuccin-mocha-blue-standard";
+      package = pkgs.catppuccin-gtk.override { variant = "mocha"; };
     };
     iconTheme = {
       name = "Papirus-Dark";

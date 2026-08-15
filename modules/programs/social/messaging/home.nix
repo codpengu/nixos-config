@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   signal-desktop =
-    if pkgs.stdenv.isDarwin then
+    if pkgs.stdenv.hostPlatform.isDarwin then
       pkgs.signal-desktop.override {
         withAppleEmojis = true;
       }

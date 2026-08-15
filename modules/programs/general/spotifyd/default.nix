@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 {
-  services.spotifyd = lib.mkIf pkgs.stdenv.isLinux {
+  services.spotifyd = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     enable = true;
     settings = {
       global = {
