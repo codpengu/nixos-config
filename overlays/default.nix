@@ -6,7 +6,7 @@ _self: super: {
   npm-groovy-lint = super.callPackage ./npm-groovy-lint { };
   ghostty = inputs.ghostty.packages.${super.stdenv.hostPlatform.system}.default;
   windsurf =
-    if super.stdenv.hostPlatform.isLinux then super.callPackage ./windsurf { } else super.windsurf;
+    if super.stdenv.hostPlatform.isLinux then super.callPackage ./windsurf { } else super.devin-desktop;
   cursor = super.callPackage ./cursor { };
   claude-code =
     if super.stdenv.hostPlatform.isLinux then
