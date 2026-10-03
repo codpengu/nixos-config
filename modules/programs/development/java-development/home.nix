@@ -34,7 +34,6 @@ in
       claude-code
       codex-cli
       ccusage
-      rtk
       copilot-cli
       openspec
       vscode
@@ -49,7 +48,6 @@ in
       claude-code
       codex-cli
       ccusage
-      rtk
       copilot-cli
       openspec
       # jetbrains.idea-community
