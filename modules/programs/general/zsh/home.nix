@@ -25,6 +25,10 @@
       autoload -z edit-command-line
       zle -N edit-command-line
       bindkey "^X^E" edit-command-line
+
+      if [ -n "$REX_BIN_DIR" ]; then
+        export PATH="$REX_BIN_DIR:$PATH"
+      fi
     '';
   };
 }
