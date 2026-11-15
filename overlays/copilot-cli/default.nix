@@ -9,25 +9,25 @@
   writableTmpDirAsHomeHook,
 }:
 let
-  version = "1.0.104";
+  version = "1.0.112";
 
   platformPkg =
     {
       x86_64-linux = {
         package = "copilot-linux-x64";
-        hash = "sha256-DVpfEdLm1wGyAJvQlPR8SK1LhejfJMPY/51IhyiB0e8=";
+        hash = "sha256-Y79fi3fy54u8edNHZF553yl9VXr8uE8xDRrnaczb69w=";
       };
       aarch64-linux = {
         package = "copilot-linux-arm64";
-        hash = "sha256-sWXpO2HMSMqwZfhiYpUboDpBo/kbas4Kpl1v8lERcYA=";
+        hash = "sha256-z3f8tUbLi1oHx1J1HyryW721PoOoLgAUNWDj2F2lUvA=";
       };
       x86_64-darwin = {
         package = "copilot-darwin-x64";
-        hash = "sha256-HO9/TM3rUCp8Rhe03u5eouzm5AN5jeuMTLQke7+bC6w=";
+        hash = "sha256-o490HDiVyonkmxXEyM7g8JbHbE05ol7/DMc4kyMRG18=";
       };
       aarch64-darwin = {
         package = "copilot-darwin-arm64";
-        hash = "sha256-q/zgRu9RDjEdAAx0kWLzjG0te0huM8xRPvUjRCRM+C4=";
+        hash = "sha256-13oNRSB1ywg2XiVzj0bThJN1LXwAtRo/URY2GLiPLx8=";
       };
     }
     .${stdenv.hostPlatform.system}

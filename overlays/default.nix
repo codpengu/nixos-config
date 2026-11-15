@@ -20,4 +20,25 @@ _self: super: {
   rtk = super.callPackage ./rtk { };
   ccusage = inputs.ccusage.packages.${super.stdenv.hostPlatform.system}.default;
   opencode = super.callPackage ./opencode { };
+
+  # Temporary workaround: telegram-desktop 7.4.1 fails on darwin because
+  # swift-stdlib-tool can't find Swift lib dirs in the nixpkgs swift layout
+  # ("Couldn't discover Swift library directories"). Same fix as upstream
+  # commit bbc3d4fb1d ("telegram-desktop: fix build with swift").
+  # Once nixos-unstable ships telegram-desktop >= 7.4.2, delete this whole
+  # override and uncomment the pass-through below:
+  # telegram-desktop = super.telegram-desktop;
+  telegram-desktop =
+    if super.stdenv.hostPlatform.isDarwin then
+      super.telegram-desktop.override {
+        unwrapped = super.telegram-desktop.unwrapped.overrideAttrs (o: {
+          postPatch = (o.postPatch or "") + ''
+            substituteInPlace Telegram/cmake/telegram_apple_swift_runtime.cmake \
+              --replace-warn 'COMMAND "''${swift_bin_dir}/swift-stdlib-tool"' 'COMMAND true' \
+              --replace-warn 'COMMAND xcrun swift-stdlib-tool' 'COMMAND true'
+          '';
+        });
+      }
+    else
+      super.telegram-desktop;
 }

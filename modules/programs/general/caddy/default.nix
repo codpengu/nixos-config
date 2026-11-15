@@ -22,6 +22,16 @@
       listenAddresses = [ "127.0.0.1" ];
     };
 
+    virtualHosts."nzbget.localhost" = {
+      locations."/".proxyPass = "http://localhost:6789";
+      listenAddresses = [ "127.0.0.1" ];
+    };
+
+    virtualHosts."jellyfin.localhost" = {
+      locations."/".proxyPass = "http://localhost:8096";
+      listenAddresses = [ "127.0.0.1" ];
+    };
+
     virtualHosts."freshrss.localhost" = {
       locations."/".proxyPass = "http://freshrss.local";
       listenAddresses = [ "127.0.0.1" ];
@@ -48,6 +58,20 @@
     virtualHosts."syncthing.localhost" = {
       extraConfig = ''
         reverse_proxy localhost:8384
+      '';
+      listenAddresses = [ "127.0.0.1" ];
+    };
+
+    virtualHosts."jellyfin.localhost" = {
+      extraConfig = ''
+        reverse_proxy localhost:8096
+      '';
+      listenAddresses = [ "127.0.0.1" ];
+    };
+
+    virtualHosts."nzbget.localhost" = {
+      extraConfig = ''
+        reverse_proxy localhost:6789
       '';
       listenAddresses = [ "127.0.0.1" ];
     };

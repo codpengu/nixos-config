@@ -137,7 +137,8 @@ in
     pulseaudio.enable = false;
     mullvad-vpn = {
       enable = true;
-    } // lib.optionalAttrs (lib.hasAttrByPath [ "services" "mullvad-vpn" "gui" "enable" ] options) {
+    }
+    // lib.optionalAttrs (lib.hasAttrByPath [ "services" "mullvad-vpn" "gui" "enable" ] options) {
       gui.enable = true;
     };
     # Configure keymap in X11

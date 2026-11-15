@@ -23,6 +23,18 @@ let
         	reverse_proxy 127.0.0.1:8384
         }
 
+        jellyfin.localhost {
+    		bind 127.0.0.1
+        	tls internal
+        	reverse_proxy 127.0.0.1:8096
+        }
+
+        nzbget.localhost {
+    		bind 127.0.0.1
+        	tls internal
+        	reverse_proxy 127.0.0.1:6789
+        }
+
         freshrss.localhost {
     		bind 127.0.0.1
         	tls internal

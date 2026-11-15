@@ -1,8 +1,42 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
+  # Stock (unwrapped) Firefox picks the startup profile from installs.ini, not
+  # profiles.ini, so it shows "Choose User Profile" on every launch.
+  # MOZ_LEGACY_PROFILES makes it honor profiles.ini (Default=1) directly.
+  home.sessionVariables.MOZ_LEGACY_PROFILES = "1";
+
+  launchd = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+    agents."firefox-legacy-profiles" = {
+      enable = true;
+      config = {
+        ProgramArguments = [
+          "/bin/launchctl"
+          "setenv"
+          "MOZ_LEGACY_PROFILES"
+          "1"
+        ];
+        RunAtLoad = true;
+      };
+    };
+  };
+
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-esr;
+    # darwin: firefox-bin-unwrapped is Mozilla's official binary with its
+    # signature intact. The nixpkgs wrapper (firefox-bin) rewrites the app
+    # bundle and breaks codesigning - AMFI kills it ("killed" on launch)
+    # because the binary has restricted entitlements.
+    # Policies still apply via ~/Library/Preferences/org.mozilla.firefox.plist
+    # (the module's darwinDefaultsId), including SearchEngines below.
+    # linux: keep firefox-esr (cached binary, wrapper works fine there).
+    package =
+      if pkgs.stdenv.hostPlatform.isDarwin then
+        pkgs.firefox-bin-unwrapped
+      else
+        pkgs.firefox-esr;
+    # the stock binary reads profiles from the standard location, not
+    # the org.nixos.firefox dir that the wrapper's MOZ_APP_DATA used
+    configPath = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin "Library/Application Support/Firefox";
     policies = {
       CaptivePortal = false;
       DisableFirefoxStudies = true;
